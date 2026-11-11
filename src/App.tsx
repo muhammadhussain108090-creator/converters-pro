@@ -240,6 +240,12 @@ const handleNavigate = (view: string) => {
             onShowNotice={showNotice}
           />
         )}
+        {currentView === 'info' && activeInfoPage && (
+  <InfoPage
+    page={activeInfoPage}
+    onBack={() => handleNavigate('home')}
+  />
+)}
       </main>
 
       {/* Footer */}
