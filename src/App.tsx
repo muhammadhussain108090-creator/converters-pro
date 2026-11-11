@@ -143,7 +143,7 @@ export default function App() {
     setActiveRoute(toolId);
     setSelectedToolId(toolId);
     setCurrentView('tool');
-    window.location.hash = toolId;
+    window.history.pushState({}, '', `/${toolId}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
