@@ -216,6 +216,35 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTool, onNavigate }) => {
           </div>
         </div>
 
+         {/* Legal & Information */}
+          <div>
+            <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100 mb-4">
+              Legal & Information
+            </h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <button onClick={() => onNavigate('about')} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left">
+                  About Us
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('contact')} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left">
+                  Contact Us
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('privacy-policy')} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left">
+                  Privacy Policy
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('terms')} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left">
+                  Terms & Conditions
+                </button>
+              </li>
+            </ul>
+          </div>
+
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 dark:text-zinc-500">
           <div>
