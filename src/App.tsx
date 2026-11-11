@@ -100,6 +100,24 @@ export default function App() {
         setActiveRoute('dashboard');
         return;
       }
+      const infoPages: InfoPageType[] = [
+  'about',
+  'contact',
+  'privacy-policy',
+  'terms'
+];
+
+if (infoPages.includes(rawRoute as InfoPageType)) {
+  setCurrentView('info');
+  setActiveInfoPage(rawRoute as InfoPageType);
+  setActiveRoute(rawRoute);
+  return;
+}
+
+setActiveInfoPage(null);
+setActiveRoute(rawRoute);
+
+setActiveInfoPage(null);
 
       setActiveRoute(rawRoute);
 
