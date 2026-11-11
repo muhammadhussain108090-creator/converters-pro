@@ -249,7 +249,10 @@ const handleNavigate = (view: string) => {
       </main>
 
       {/* Footer */}
-      <Footer onSelectTool={handleSelectTool} />
+      <Footer
+  onSelectTool={handleSelectTool}
+  onNavigate={handleNavigate}
+/>
 
       {/* Authentication Modal */}
       <AuthModal
