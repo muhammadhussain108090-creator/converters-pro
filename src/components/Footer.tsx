@@ -3,6 +3,7 @@ import { FileText, Shield, Zap, Lock, Heart, ExternalLink } from 'lucide-react';
 
 interface FooterProps {
   onSelectTool: (toolId: string) => void;
+  onNavigate: (page: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onSelectTool }) => {
