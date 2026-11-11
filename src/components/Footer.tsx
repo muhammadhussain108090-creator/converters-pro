@@ -6,7 +6,7 @@ interface FooterProps {
   onNavigate: (page: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSelectTool }) => {
+export const Footer: React.FC<FooterProps> = ({ onSelectTool, onNavigate }) => {
   return (
     <footer className="w-full bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800/80 pt-16 pb-12 text-zinc-600 dark:text-zinc-400 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
