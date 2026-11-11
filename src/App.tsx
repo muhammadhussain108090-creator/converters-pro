@@ -148,16 +148,19 @@ export default function App() {
   };
 
   const handleNavigate = (view: string) => {
-    if (view === 'home') {
-      setCurrentView('home');
-      window.location.hash = '';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (view === 'dashboard') {
-      setCurrentView('dashboard');
-      window.location.hash = 'dashboard';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
+  if (view === 'home') {
+    setCurrentView('home');
+    setActiveRoute('');
+    window.history.pushState({}, '', '/');
+    applyPageSEO(DEFAULT_SITE_SEO);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else if (view === 'dashboard') {
+    setCurrentView('dashboard');
+    setActiveRoute('dashboard');
+    window.history.pushState({}, '', '/dashboard');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+};
 
   const handleOpenAuth = (mode: 'login' | 'signup' = 'login') => {
     setAuthModalMode(mode);
