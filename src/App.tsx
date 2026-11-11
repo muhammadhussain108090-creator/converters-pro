@@ -17,6 +17,7 @@ import { applyPageSEO } from './utils/seo';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'home' | 'tool' | 'dashboard'>('home');
+  const [activeInfoPage, setActiveInfoPage] = useState<InfoPageType | null>(null);
   const [selectedToolId, setSelectedToolId] = useState<string>('merge');
   const [activeRoute, setActiveRoute] = useState<string>('merge');
   const [user, setUser] = useState<User | null>(null);
