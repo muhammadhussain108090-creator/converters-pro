@@ -1,68 +1,8 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- Homepage -->
   <url>
     <loc>https://converters-pro.vercel.app/</loc>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- PDF Tools -->
-  <url>
-    <loc>https://converters-pro.vercel.app/pdf-tools</loc>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://converters-pro.vercel.app/pdf-viewer</loc>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://converters-pro.vercel.app/pdf-editor</loc>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://converters-pro.vercel.app/pdf-merger</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://converters-pro.vercel.app/pdf-splitter</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://converters-pro.vercel.app/pdf-compressor</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://converters-pro.vercel.app/pdf-to-word</loc>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://converters-pro.vercel.app/word-to-pdf</loc>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://converters-pro.vercel.app/pdf-to-jpg</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://converters-pro.vercel.app/jpg-to-pdf</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- General Converter -->
-  <url>
-    <loc>https://converters-pro.vercel.app/free-online-file-converter</loc>
-    <priority>0.9</priority>
-  </url>
-
 </urlset>
