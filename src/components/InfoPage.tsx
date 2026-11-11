@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Mail, ShieldCheck, FileText, Info, ArrowLeft } from 'lucide-react';
 
