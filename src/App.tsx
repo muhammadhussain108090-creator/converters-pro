@@ -16,7 +16,7 @@ import { DEFAULT_SITE_SEO, getSeoMetadata } from './config/seo';
 import { applyPageSEO } from './utils/seo';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'tool' | 'dashboard'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'tool' | 'dashboard' | 'info'>('home');
   const [activeInfoPage, setActiveInfoPage] = useState<InfoPageType | null>(null);
   const [selectedToolId, setSelectedToolId] = useState<string>('merge');
   const [activeRoute, setActiveRoute] = useState<string>('merge');
@@ -155,17 +155,30 @@ export default function App() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-  const handleNavigate = (view: string) => {
-    if (view === 'home') {
-      setCurrentView('home');
-      window.location.hash = '';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (view === 'dashboard') {
-      setCurrentView('dashboard');
-      window.location.hash = 'dashboard';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
+  
+const handleNavigate = (view: string) => {
+  if (view === 'home') {
+    setCurrentView('home');
+    setActiveInfoPage(null);
+    window.history.pushState({}, '', '/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } else if (view === 'dashboard') {
+    setCurrentView('dashboard');
+    setActiveInfoPage(null);
+    window.location.hash = 'dashboard';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } else if (
+    ['about', 'contact', 'privacy-policy', 'terms'].includes(view)
+  ) {
+    setActiveInfoPage(view as InfoPageType);
+    setCurrentView('info');
+    window.history.pushState({}, '', `/${view}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+};
+
 
   const handleOpenAuth = (mode: 'login' | 'signup' = 'login') => {
     setAuthModalMode(mode);
