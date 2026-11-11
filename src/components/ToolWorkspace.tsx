@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import {
   ArrowLeft,
   Upload,
@@ -29,7 +29,8 @@ import {
   Video,
   Volume2,
   Headphones,
-  Film
+  Film,
+  FileSpreadsheet
 } from 'lucide-react';
 import {
   Tool,
@@ -54,7 +55,8 @@ import {
   updatePdfMetadata,
   imagesToPdf,
   saveBlob,
-  loadPdfDocument
+  loadPdfDocument,
+  pdfToJpgImages
 } from '../utils/pdfTools';
 import {
   convertImage,
@@ -64,16 +66,19 @@ import {
   loadImage,
   ImageProcessingResult
 } from '../utils/imageTools';
-import { wordToPdf, pdfToWordDocument } from '../utils/documentTools';
+import { wordToPdf, pdfToWordDocument, pdfToExcel } from '../utils/documentTools';
 import {
   convertAudioFile,
   convertVideoFile,
   extractAudioFromVideo
 } from '../utils/mediaTools';
 import { saveConversionRecord } from '../config/firebase';
+import { getSeoMetadata } from '../config/seo';
+import { applyPageSEO } from '../utils/seo';
 
 interface ToolWorkspaceProps {
   tool: Tool;
+  activeRoute?: string;
   onBack: () => void;
   onShowNotice: (type: 'success' | 'error' | 'info', msg: string) => void;
 }
@@ -96,14 +101,35 @@ const ICON_MAP: Record<string, React.FC<any>> = {
   Video,
   Volume2,
   Headphones,
-  Film
+  Film,
+  FileSpreadsheet
 };
 
 export const ToolWorkspace: React.FC<ToolWorkspaceProps> = ({
   tool,
+  activeRoute,
   onBack,
   onShowNotice
 }) => {
+  const seo = useMemo(() => getSeoMetadata(activeRoute || tool.id), [activeRoute, tool.id]);
+
+  useEffect(() => {
+    applyPageSEO(seo);
+  }, [seo]);
+
+  // Apply preset options (e.g. #mp3-to-wav preselects WAV target format)
+  useEffect(() => {
+    if (seo.presetOptions?.audioFormat) {
+      setAudioFormat(seo.presetOptions.audioFormat);
+    }
+    if (seo.presetOptions?.videoFormat) {
+      setVideoFormat(seo.presetOptions.videoFormat);
+    }
+    if (seo.presetOptions?.extractFormat) {
+      setExtractAudioFormat(seo.presetOptions.extractFormat);
+    }
+  }, [seo]);
+
   const [files, setFiles] = useState<File[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -495,6 +521,19 @@ export const ToolWorkspace: React.FC<ToolWorkspaceProps> = ({
           setProgressStatus(s);
         });
         outputFileName = safeName(files[0].name, 'doc', 'extracted-document');
+      } else if (tool.id === 'pdf-to-excel') {
+        outputBlob = await pdfToExcel(files[0], (p, s) => {
+          setProgressPercent(p);
+          setProgressStatus(s);
+        });
+        outputFileName = safeName(files[0].name, 'xls', 'extracted-spreadsheet');
+      } else if (tool.id === 'pdf-to-jpg') {
+        const jpgRes = await pdfToJpgImages(files[0], (p, s) => {
+          setProgressPercent(p);
+          setProgressStatus(s);
+        });
+        outputBlob = jpgRes.blob;
+        outputFileName = safeName(files[0].name, jpgRes.isZip ? 'zip' : 'jpg', 'extracted-images');
       } else if (tool.id === 'audio-converter') {
         const audioRes = await convertAudioFile(
           files[0],
@@ -608,7 +647,7 @@ export const ToolWorkspace: React.FC<ToolWorkspaceProps> = ({
           <div className="flex-1">
             <div className="flex items-center gap-2 flex-wrap">
               <h1 className="text-2xl sm:text-3xl font-heading font-extrabold text-zinc-900 dark:text-white tracking-tight">
-                {tool.name}
+                {seo.h1 || tool.name}
               </h1>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                 {tool.category}
@@ -619,7 +658,10 @@ export const ToolWorkspace: React.FC<ToolWorkspaceProps> = ({
                 </span>
               )}
             </div>
-            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1.5 leading-relaxed">
+            <h2 className="text-sm sm:text-base font-semibold text-indigo-700 dark:text-indigo-300 mt-2 leading-relaxed">
+              {seo.h2 || tool.desc}
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
               {tool.desc}
             </p>
           </div>
@@ -1683,6 +1725,56 @@ export const ToolWorkspace: React.FC<ToolWorkspaceProps> = ({
                 </div>
               </div>
             )}
+          </div>
+        )}
+      </div>
+
+      {/* SEO Educational Guide, Step-by-Step Instructions & FAQs */}
+      <div className="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 border border-zinc-200/80 dark:border-zinc-800 shadow-sm space-y-8">
+        <div>
+          <h2 className="text-xl sm:text-2xl font-heading font-extrabold text-zinc-900 dark:text-white tracking-tight">
+            How to Use {tool.name} in 4 Easy Steps
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+            Fast, secure, and private conversion executed 100% inside your web browser.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            {seo.howToSteps.map((step, idx) => (
+              <div
+                key={idx}
+                className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200/70 dark:border-zinc-700/60 space-y-2.5"
+              >
+                <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white font-extrabold flex items-center justify-center text-sm shadow-sm">
+                  {idx + 1}
+                </div>
+                <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed font-medium">
+                  {step}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {seo.faqs.length > 0 && (
+          <div className="pt-6 border-t border-zinc-200/80 dark:border-zinc-800">
+            <h2 className="text-xl sm:text-2xl font-heading font-extrabold text-zinc-900 dark:text-white tracking-tight mb-4">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-4">
+              {seo.faqs.map((faq, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-2xl bg-zinc-50/70 dark:bg-zinc-800/40 border border-zinc-200/70 dark:border-zinc-700/60"
+                >
+                  <h3 className="font-heading font-bold text-sm sm:text-base text-zinc-900 dark:text-white">
+                    {faq.question}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

@@ -43,6 +43,38 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTool }) => {
             <ul className="space-y-2 text-sm">
               <li>
                 <button
+                  onClick={() => onSelectTool('pdf-to-word')}
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                >
+                  PDF to Word (.doc)
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectTool('word-to-pdf')}
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                >
+                  Word to PDF (.docx)
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectTool('pdf-to-excel')}
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                >
+                  PDF to Excel (.xls)
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectTool('pdf-to-jpg')}
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                >
+                  PDF to JPG
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => onSelectTool('merge')}
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
                 >
@@ -65,30 +97,6 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTool }) => {
                   Rotate PDF
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={() => onSelectTool('extract-pages')}
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
-                >
-                  Extract Pages
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectTool('delete-pages')}
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
-                >
-                  Delete Pages
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectTool('pdf-metadata')}
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
-                >
-                  PDF Metadata Editor
-                </button>
-              </li>
             </ul>
           </div>
 
@@ -98,6 +106,38 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTool }) => {
               Image Utilities
             </h4>
             <ul className="space-y-2 text-sm">
+              <li>
+                <button
+                  onClick={() => onSelectTool('image-to-png')}
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                >
+                  JPG to PNG
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectTool('image-to-jpg')}
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                >
+                  PNG / WEBP to JPG
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectTool('image-to-webp')}
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                >
+                  JPG to WEBP
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectTool('images-pdf')}
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                >
+                  Image to PDF (JPG to PDF)
+                </button>
+              </li>
               <li>
                 <button
                   onClick={() => onSelectTool('compress-image')}
@@ -116,35 +156,19 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTool }) => {
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTool('convert-image')}
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
-                >
-                  Convert (JPG, PNG, WebP)
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={() => onSelectTool('crop-image')}
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
                 >
                   Crop Image
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={() => onSelectTool('images-pdf')}
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
-                >
-                  Images to PDF
-                </button>
-              </li>
             </ul>
           </div>
 
-          {/* Media & Documents */}
+          {/* Media & Audio/Video */}
           <div>
             <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100 mb-4">
-              Media & Docs
+              Audio & Video
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -152,7 +176,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTool }) => {
                   onClick={() => onSelectTool('audio-converter')}
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
                 >
-                  Audio Converter
+                  Audio Converter (MP3, WAV)
                 </button>
               </li>
               <li>
@@ -160,7 +184,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTool }) => {
                   onClick={() => onSelectTool('video-converter')}
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
                 >
-                  Video Converter
+                  Video Converter (MP4, MOV)
                 </button>
               </li>
               <li>
@@ -168,23 +192,23 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTool }) => {
                   onClick={() => onSelectTool('video-to-audio')}
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
                 >
-                  Video to Audio
+                  Video to Audio (MP4 to MP3)
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTool('word-to-pdf')}
+                  onClick={() => onSelectTool('extract-pages')}
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
                 >
-                  Word to PDF (.docx)
+                  Extract PDF Pages
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTool('pdf-to-word')}
+                  onClick={() => onSelectTool('pdf-metadata')}
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
                 >
-                  PDF to Word (.doc)
+                  PDF Metadata Editor
                 </button>
               </li>
             </ul>

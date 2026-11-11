@@ -12,10 +12,13 @@ import { Dashboard } from './components/Dashboard';
 import { AuthModal } from './components/AuthModal';
 import { Toast } from './components/Toast';
 import { InfoSections } from './components/InfoSections';
+import { DEFAULT_SITE_SEO, getSeoMetadata } from './config/seo';
+import { applyPageSEO } from './utils/seo';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'home' | 'tool' | 'dashboard'>('home');
   const [selectedToolId, setSelectedToolId] = useState<string>('merge');
+  const [activeRoute, setActiveRoute] = useState<string>('merge');
   const [user, setUser] = useState<User | null>(null);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'signup'>('login');
@@ -62,30 +65,70 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  // Hash route listener for SEO-friendly direct tool URLs (e.g. #merge, #split, #dashboard)
+  // Comprehensive route listener for SEO URLs, clean paths, query params, and hashes
   useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash.replace(/^#/, '');
-      if (!hash) {
+    const handleRoute = () => {
+      // 1. Check clean path or GitHub Pages SPA redirect query (?/path)
+      let rawRoute = '';
+      if (window.location.search.startsWith('?/')) {
+        rawRoute = window.location.search.slice(2).split('&')[0];
+      } else if (
+        window.location.pathname &&
+        window.location.pathname !== '/' &&
+        !window.location.pathname.endsWith('index.html')
+      ) {
+        rawRoute = window.location.pathname.replace(/^\/|\/$/g, '');
+      }
+
+      // 2. Check hash if no clean path
+      if (!rawRoute) {
+        rawRoute = window.location.hash.replace(/^#/, '');
+      }
+
+      rawRoute = rawRoute.toLowerCase();
+
+      if (!rawRoute || rawRoute === 'home') {
         setCurrentView('home');
+        setActiveRoute('');
+        applyPageSEO(DEFAULT_SITE_SEO);
         return;
       }
 
-      if (hash === 'dashboard') {
+      if (rawRoute === 'dashboard') {
         setCurrentView('dashboard');
+        setActiveRoute('dashboard');
         return;
       }
 
-      const matchTool = TOOLS.find((t) => t.id === hash);
+      setActiveRoute(rawRoute);
+
+      // Check SEO dictionary match
+      const seoConfig = getSeoMetadata(rawRoute);
+      if (seoConfig && seoConfig.defaultToolId) {
+        setSelectedToolId(seoConfig.defaultToolId);
+        setCurrentView('tool');
+        applyPageSEO(seoConfig);
+        return;
+      }
+
+      const matchTool = TOOLS.find((t) => t.id === rawRoute);
       if (matchTool) {
         setSelectedToolId(matchTool.id);
         setCurrentView('tool');
+        applyPageSEO(getSeoMetadata(matchTool.id));
+      } else {
+        setCurrentView('home');
+        applyPageSEO(DEFAULT_SITE_SEO);
       }
     };
 
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    handleRoute();
+    window.addEventListener('hashchange', handleRoute);
+    window.addEventListener('popstate', handleRoute);
+    return () => {
+      window.removeEventListener('hashchange', handleRoute);
+      window.removeEventListener('popstate', handleRoute);
+    };
   }, []);
 
   const showNotice = (type: 'success' | 'error' | 'info' | 'warning', message: string) => {
@@ -97,6 +140,7 @@ export default function App() {
   };
 
   const handleSelectTool = (toolId: string) => {
+    setActiveRoute(toolId);
     setSelectedToolId(toolId);
     setCurrentView('tool');
     window.location.hash = toolId;
@@ -159,8 +203,9 @@ export default function App() {
 
         {currentView === 'tool' && (
           <ToolWorkspace
-            key={activeTool.id}
+            key={`${activeTool.id}_${activeRoute}`}
             tool={activeTool}
+            activeRoute={activeRoute}
             onBack={() => handleNavigate('home')}
             onShowNotice={showNotice}
           />

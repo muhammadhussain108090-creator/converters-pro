@@ -232,7 +232,7 @@ export const validateFileSelection = (
     }
   }
 
-  const pdfTools = ['merge', 'split', 'rotate', 'extract-pages', 'delete-pages', 'pdf-metadata', 'pdf-to-word', 'pdf-protect'];
+  const pdfTools = ['merge', 'split', 'rotate', 'extract-pages', 'delete-pages', 'pdf-metadata', 'pdf-to-word', 'pdf-to-excel', 'pdf-to-jpg', 'pdf-protect'];
   const imageTools = [
     'compress-image',
     'resize-image',

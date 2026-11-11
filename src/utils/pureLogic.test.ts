@@ -177,3 +177,14 @@ test('getMediaMimeType returns correct content types', () => {
   assert.equal(getMediaMimeType('webm'), 'video/webm');
   assert.equal(getMediaMimeType('mov'), 'video/quicktime');
 });
+
+test('validateFileSelection correctly validates pdf-to-excel and pdf-to-jpg', () => {
+  const dummyPdf = new File(['%PDF-1.4'], 'statement.pdf', { type: 'application/pdf' });
+  const dummyTxt = new File(['hello'], 'notes.txt', { type: 'text/plain' });
+
+  assert.equal(validateFileSelection([dummyPdf], 'pdf-to-excel', 50).valid, true);
+  assert.equal(validateFileSelection([dummyPdf], 'pdf-to-jpg', 50).valid, true);
+  assert.equal(validateFileSelection([dummyTxt], 'pdf-to-excel', 50).valid, false);
+  assert.equal(validateFileSelection([dummyTxt], 'pdf-to-jpg', 50).valid, false);
+});
+

@@ -21,7 +21,8 @@ import {
   Sliders,
   Music,
   Video,
-  Volume2
+  Volume2,
+  FileSpreadsheet
 } from 'lucide-react';
 import { TOOLS } from '../config/tools';
 import { Tool, ToolCategory } from '../types';
@@ -47,7 +48,8 @@ const ICON_MAP: Record<string, React.FC<any>> = {
   Info,
   Music,
   Video,
-  Volume2
+  Volume2,
+  FileSpreadsheet
 };
 
 export const ToolsDirectory: React.FC<ToolsDirectoryProps> = ({

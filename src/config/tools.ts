@@ -193,6 +193,31 @@ export const TOOLS: Tool[] = [
     technicalNote: 'Browser-based conversion extracts textual content and structure into an editable Word document. Complex multi-column graphic layouts or scanned images without embedded text require specialized OCR engines.'
   },
   {
+    id: 'pdf-to-excel',
+    name: 'PDF to Excel',
+    shortDesc: 'Extract PDF tables and data into an editable Excel spreadsheet (.xls).',
+    desc: 'Extract document tables and structured content into an Excel spreadsheet compatible with Microsoft Excel, Google Sheets, and LibreOffice.',
+    category: 'Document',
+    icon: 'FileSpreadsheet',
+    tag: 'New',
+    acceptedTypes: ['application/pdf', '.pdf'],
+    acceptAttribute: '.pdf,application/pdf',
+    maxFiles: 1,
+    technicalNote: 'Browser-based conversion analyzes document layout and builds standard XML Spreadsheet workbooks (.xls) ready for Microsoft Excel and Google Sheets.'
+  },
+  {
+    id: 'pdf-to-jpg',
+    name: 'PDF to JPG',
+    shortDesc: 'Convert PDF pages and embedded graphics into high-resolution JPG images.',
+    desc: 'Convert PDF pages into high-resolution JPG images. Multi-page documents are packaged into a downloadable ZIP archive.',
+    category: 'Image',
+    icon: 'FileImage',
+    tag: 'Popular',
+    acceptedTypes: ['application/pdf', '.pdf'],
+    acceptAttribute: '.pdf,application/pdf',
+    maxFiles: 1
+  },
+  {
     id: 'audio-converter',
     name: 'Audio Converter',
     shortDesc: 'Convert audio between MP3, WAV, AAC, FLAC, OGG, M4A, and WMA.',

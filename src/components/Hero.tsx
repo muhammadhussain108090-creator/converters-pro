@@ -30,12 +30,14 @@ export const Hero: React.FC<HeroProps> = ({ onSearch, onSelectTool }) => {
   };
 
   const quickPicks = [
-    { id: 'merge', label: 'Merge PDF' },
+    { id: 'pdf-to-word', label: 'PDF to Word' },
+    { id: 'word-to-pdf', label: 'Word to PDF' },
+    { id: 'pdf-to-excel', label: 'PDF to Excel' },
     { id: 'audio-converter', label: 'Audio Converter' },
     { id: 'video-converter', label: 'Video Converter' },
-    { id: 'video-to-audio', label: 'Extract Audio' },
-    { id: 'compress-image', label: 'Compress Image' },
-    { id: 'split', label: 'Split PDF' }
+    { id: 'image-to-png', label: 'JPG to PNG' },
+    { id: 'merge', label: 'Merge PDF' },
+    { id: 'compress-image', label: 'Compress Image' }
   ];
 
   return (

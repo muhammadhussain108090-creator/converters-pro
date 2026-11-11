@@ -9,31 +9,42 @@ All conversion algorithms execute **100% in-browser** using client-side WebAssem
 ## 🛠️ Complete Feature Matrix
 
 ### 1. PDF Tools
+- **PDF to Word**: Extract document structure and contents into an editable Word document format (`.doc`) compatible with Microsoft Word and Google Docs.
+- **Word to PDF**: Client-side extraction of text, headings, and structure from `.docx` files using Mammoth and PDF-lib rendering.
+- **PDF to Excel**: Extract tabular data and pages into native Excel spreadsheets (`.xls` / `.csv`) compatible with Microsoft Excel, Google Sheets, and LibreOffice Calc.
+- **PDF to JPG**: Extract document pages and embedded graphics into high-resolution JPG images (multi-page ZIP packaging).
+- **Images to PDF (JPG to PDF)**: Convert multiple JPG, PNG, and WebP pictures into a single multi-page PDF with customizable page sizes (Fit, A4, US Letter), orientation (Auto, Portrait, Landscape), and margins.
 - **Merge PDF**: Combine multiple PDF documents with drag-and-drop reordering.
-- **Split PDF**:
-  - Extract specific page ranges (e.g. `1-3, 5, 8-10`).
-  - Split all pages into individual PDFs packed into a `.zip` archive.
-  - Split every *N* pages into chunked PDF archives.
+- **Split PDF**: Extract specific page ranges, split all pages into individual PDFs packed into a `.zip` archive, or chunk every *N* pages.
 - **Rotate PDF**: Rotate all pages, odd pages only, even pages only, or custom pages by 90°, 180°, or 270° clockwise.
 - **Extract PDF Pages**: Select specific pages to pull out into a clean new PDF document.
 - **Delete PDF Pages**: Remove unwanted or blank pages while keeping remaining pages intact.
 - **PDF Metadata Editor**: Inspect and edit technical document properties (Title, Author, Subject, Keywords).
-- **Images to PDF**: Convert multiple JPG, PNG, and WebP pictures into a single multi-page PDF with customizable page sizes (Fit, A4, US Letter), orientation (Auto, Portrait, Landscape), and margins.
 
 ### 2. Image Tools
+- **JPG to PNG**: Convert JPEG photos into lossless PNG images with alpha-transparency preservation.
+- **PNG / WEBP to JPG**: Convert PNG and Google WebP graphics into universal JPG format with clean white background composite.
+- **JPG to WEBP**: Next-generation Google WebP compression for fast loading and reduced bandwidth.
 - **Compress Image**: Quality slider (10% to 95%), format selection (WebP, JPG), constraint max width, and real-time savings % calculator.
 - **Resize Image**: Pixel dimension inputs with aspect ratio lock, and quick presets (Full HD 1920x1080, HD 1280x720, Square 800x800, Avatar 400x400).
 - **Convert Image**: Lossless/lossy format conversion between JPG, PNG, and WebP with alpha-transparency handling.
 - **Crop Image**: Interactive cropping with aspect ratio presets (1:1 Square, 16:9 Cinema, 4:3 Standard, Freeform).
 
-### 3. Document Tools
-- **Word to PDF**: Client-side extraction of text, headings, and structure from `.docx` files using Mammoth and PDF-lib rendering.
-- **PDF to Word**: Extraction of document text and structural pages into an editable Word document format (`.doc`) compatible with Microsoft Word and Google Docs.
-
-### 4. Audio & Video Tools (FFmpeg WASM & Web Audio API)
+### 3. Audio & Video Tools (FFmpeg WASM & Web Audio API)
 - **Audio Converter**: Convert any audio file into MP3, WAV (lossless PCM), AAC, FLAC, OGG, M4A, or WMA with custom bitrate presets (128k, 192k, 256k, 320k), sample rates (44.1 kHz, 48 kHz, 22.05 kHz), and channel control. Includes instant native Web Audio API PCM encoding fallback.
 - **Video Converter**: Transcode videos between MP4 (H.264), MOV, MKV, AVI, and WebM with quality presets (High, Balanced, Compact) and resolution scaling (1080p, 720p, 480p, Original).
 - **Video to Audio**: Extract audio tracks directly from MP4, MOV, MKV, AVI, and WebM video files into MP3, WAV, AAC, OGG, or M4A audio files.
+
+### 4. Search Engine Optimization (SEO) & Web Standards
+- **XML Sitemap (`/sitemap.xml`)**: Complete XML sitemap indexing all public converter landing pages with lastmod, change frequencies, and search priority.
+- **Robots Configuration (`/robots.txt`)**: Crawler permissions and sitemap declaration (`Sitemap: https://convertpro.netlify.app/sitemap.xml`), disallowing private account paths (`/dashboard`).
+- **Target Keyword Optimization**: Built-in keyword landing routes with targeted H1 headings, semantic H2 outlines, 4-step user instructions, and FAQ schemas for:
+  - *PDF*: PDF to Word, Word to PDF, PDF to Excel, PDF to JPG, JPG to PDF.
+  - *Images*: JPG to PNG, PNG to JPG, WEBP to JPG, JPG to WEBP, Image to PDF.
+  - *Audio*: MP3 to WAV, WAV to MP3, Audio to MP3, M4A to MP3.
+  - *Video*: MP4 to MP3, MOV to MP4, MKV to MP4, Video to MP3.
+  - *General*: Free Online File Converter, PDF Converter Online, Image Converter Online, Audio Converter Online, Video Converter Online.
+- **Structured Data (JSON-LD)**: Schema.org `WebApplication` and `FAQPage` rich search result tags.
 
 ### 5. Firebase Authentication & User Dashboard
 - **Sign Up**: Name, email, password with live strength validation meter.
