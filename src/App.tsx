@@ -140,12 +140,19 @@ export default function App() {
   };
 
   const handleSelectTool = (toolId: string) => {
-    setActiveRoute(toolId);
-    setSelectedToolId(toolId);
-    setCurrentView('tool');
-    window.history.pushState({}, '', `/${toolId}`);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  setActiveRoute(toolId);
+  setSelectedToolId(toolId);
+  setCurrentView('tool');
+
+  window.history.pushState({}, '', `/${toolId}`);
+
+  const seoConfig = getSeoMetadata(toolId);
+  if (seoConfig) {
+    applyPageSEO(seoConfig);
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 
   const handleNavigate = (view: string) => {
   if (view === 'home') {
